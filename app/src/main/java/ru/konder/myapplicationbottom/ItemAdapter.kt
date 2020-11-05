@@ -36,5 +36,5 @@ class ItemAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
-        ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_of_list, parent, false))
+        ViewHolder(LayoutInflater.from(context).inflate(R.layout.list_item, parent, false))
 }

@@ -11,6 +11,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.appcompat.app.AppCompatActivity
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_main.*
+import okhttp3.*
+import org.json.JSONObject
+import java.io.IOException
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.fragment_blank.*
 import kotlinx.android.synthetic.main.list_item.view.*
@@ -21,7 +27,6 @@ class BlankFragment:Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_blank, container, false)
         val rootView = inflater.inflate(R.layout.fragment_blank, container, false)
         val recyclerview = rootView.findViewById(R.id._imageRecyclerView) as RecyclerView // Add this
         recyclerview.layoutManager = LinearLayoutManager(activity)
@@ -48,6 +53,7 @@ class BlankFragment:Fragment() {
             val videoTitle = videoTitles.get(position)
             holder?.view?.title.text= videoTitle
         }
+
     }
 
     class CustomViewHolder(val view: View): RecyclerView.ViewHolder(view){
