@@ -12,14 +12,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val homeFragment = BlankFragment()
-        val postsFragment = BlankFragment2()
-        val messagesFragment = BlankFragment3()
         makeCurrentFragment(homeFragment)
         bottom_nav.setOnNavigationItemSelectedListener {
             when (it.itemId){
                 R.id.ic_home->makeCurrentFragment(homeFragment)
-                R.id.ic_other->makeCurrentFragment(postsFragment)
-                R.id.ic_another->makeCurrentFragment(messagesFragment)
             }
             true
         }
