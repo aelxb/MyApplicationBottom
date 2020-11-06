@@ -7,5 +7,6 @@ import kotlinx.android.parcel.Parcelize
 
 data class ItemOfList (
     var imageSrc: Int,
-    var imageTitle: String,
-    var imageDesc: String ) : Parcelable
+    var title: String,
+    var rate: String,
+    var date: String ) : Parcelable

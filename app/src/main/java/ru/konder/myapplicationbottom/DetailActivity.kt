@@ -16,9 +16,5 @@ class DetailActivity : AppCompatActivity(){
         val imgSrc = findViewById<ImageView>(R.id._imageDetail)
         val imgTitle = findViewById<TextView>(R.id.tvTitle)
         val imgDesc = findViewById<TextView>(R.id._imageDesc)
-
-        imgSrc.setImageResource(item.imageSrc)
-        imgTitle.text = item.imageTitle
-        imgDesc.text = item.imageDesc
     }
 }

@@ -20,7 +20,7 @@ class ItemAdapter(
         val tvTitle = view.findViewById<TextView>(R.id.title)
         fun bind(image: ItemOfList, listener: (ItemOfList) -> Unit){
             imageSrc.setImageResource(image.imageSrc)
-            tvTitle.text = image.imageTitle
+            tvTitle.text = image.title
             itemView.setOnClickListener{
                 (listener(image))
             }
