@@ -14,9 +14,10 @@ import java.io.IOException
 class MainActivity : AppCompatActivity() {
     var URL = "https://api.themoviedb.org/3/movie/top_rated?api_key=ab9d01d6538c94cad37d1af4c042140d"
     var okHttpClient: OkHttpClient = OkHttpClient()
-    var titles = arrayListOf<String>()
-    var dates = arrayListOf<String>()
-    var rates = arrayListOf<String>()
+    var titles: String=""
+    var dates: String=""
+    var rates: String=""
+    var patches: String=""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -30,29 +31,31 @@ class MainActivity : AppCompatActivity() {
                 for (i in 0 until joke.length()) {
                     val item = joke.getJSONObject(i)
                     val title = item.get("title").toString()
-                    titles.add(title)
+                    titles+="_"
+                    titles+= title
                     val date = item.get("release_date").toString()
-                    dates.add(date)
+                    dates+="_"
+                    dates+= date
                     val rate = item.get("vote_average").toString()
-                    rates.add(rate)
+                    rates+="_"
+                    rates+= rate
+                    val patch = item.get("poster_path").toString()
+                    patches+="_"
+                    patches+= patch
                 }
                 runOnUiThread{
-                    var i =9
+                    val homeFragment = BlankFragment()
+                    homeFragment.arguments= bundleOf("KEY1" to titles, "KEY2" to dates, "KEY3" to rates, "KEY4" to patches)
+                    makeCurrentFragment(homeFragment)
+                    bottom_nav.setOnNavigationItemSelectedListener {
+                        when (it.itemId){
+                            R.id.ic_home->makeCurrentFragment(homeFragment)
+                        }
+                        true
+                    }
                 }
             }
         })
-        val homeFragment = BlankFragment()
-        homeFragment.arguments = bundleOf("KEYTITLE" to titles)
-        homeFragment.arguments = bundleOf("KEYRELEASE" to dates)
-        homeFragment.arguments = bundleOf("KEYRATE" to rates)
-        makeCurrentFragment(homeFragment)
-        bottom_nav.setOnNavigationItemSelectedListener {
-            when (it.itemId){
-                R.id.ic_home->makeCurrentFragment(homeFragment)
-            }
-            true
-        }
-
     }
     private fun makeCurrentFragment(fragment: Fragment) =
         supportFragmentManager.beginTransaction().apply{

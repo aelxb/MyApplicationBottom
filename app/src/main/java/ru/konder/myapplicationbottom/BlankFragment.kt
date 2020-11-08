@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.content.Intent
+import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -30,20 +31,57 @@ class BlankFragment:Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rates = arguments?.getStringArrayList("KEYRATE")
-        val dates = arguments?.getStringArrayList("KEYRELEASE")
-        val titles = arguments?.getStringArrayList("KEYTITLE")
-        var imageList = arrayListOf<ItemOfList>()
-        if ((rates != null)&&(dates != null)&&(titles != null)) {
-            for (i in 0..rates.size-2){
-                val item = ItemOfList(R.drawable.ic_home_black_24dp, titles[i],rates[i],dates[i])
-                imageList.add(item)
-                Toast.makeText(context,titles[i]+rates[i]+dates[i],Toast.LENGTH_LONG)
-                TimeUnit.SECONDS.sleep(2);
+        val titles = arguments?.get("KEY1")
+        val tArray = arrayListOf <String>()
+        val dates=arguments?.get("KEY2")
+        val dArray = arrayListOf <String>()
+        val rates=arguments?.get("KEY3")
+        val rArray = arrayListOf <String>()
+        val patches=arguments?.get("KEY4")
+        val pArray = arrayListOf <String>()
+        var i=-1
+        for(char in titles.toString()){
+            if(char=='_'){
+                i+=1
+                tArray.add("")
+            }
+            else{
+                tArray[i]+=char.toString()
             }
         }
-        else
-            Toast.makeText(context,"LOH",Toast.LENGTH_LONG)
+        i=-1
+        for(char in dates.toString()){
+            if(char=='_'){
+                i+=1
+                dArray.add("")
+            }
+            else{
+                dArray[i]+=char.toString()
+            }
+        }
+        i=-1
+        for(char in rates.toString()){
+            if(char=='_'){
+                i+=1
+                rArray.add("")
+            }
+            else{
+                rArray[i]+=char.toString()
+            }
+        }
+        i=-1
+        for(char in patches.toString()){
+            if(char=='_'){
+                i+=1
+                pArray.add("")
+            }
+            else{
+                pArray[i]+=char.toString()
+            }
+        }
+        var imageList = arrayListOf<ItemOfList>()
+        for(i in 0..19)
+            imageList.add(ItemOfList(pArray[i],tArray[i],rArray[i],dArray[i]))
         val rootView = inflater.inflate(R.layout.fragment_blank, container, false)
         val recyclerview = rootView.findViewById(R.id._imageRecyclerView) as RecyclerView // Add this
         recyclerview.layoutManager = LinearLayoutManager(activity)
