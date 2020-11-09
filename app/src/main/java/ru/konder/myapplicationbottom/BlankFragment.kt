@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.content.Intent
 import android.util.Log
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -31,64 +32,21 @@ class BlankFragment:Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val titles = arguments?.get("KEY1")
-        val tArray = arrayListOf <String>()
-        val dates=arguments?.get("KEY2")
-        val dArray = arrayListOf <String>()
-        val rates=arguments?.get("KEY3")
-        val rArray = arrayListOf <String>()
-        val patches=arguments?.get("KEY4")
-        val pArray = arrayListOf <String>()
-        var i=-1
-        for(char in titles.toString()){
-            if(char=='_'){
-                i+=1
-                tArray.add("")
-            }
-            else{
-                tArray[i]+=char.toString()
-            }
-        }
-        i=-1
-        for(char in dates.toString()){
-            if(char=='_'){
-                i+=1
-                dArray.add("")
-            }
-            else{
-                dArray[i]+=char.toString()
-            }
-        }
-        i=-1
-        for(char in rates.toString()){
-            if(char=='_'){
-                i+=1
-                rArray.add("")
-            }
-            else{
-                rArray[i]+=char.toString()
-            }
-        }
-        i=-1
-        for(char in patches.toString()){
-            if(char=='_'){
-                i+=1
-                pArray.add("")
-            }
-            else{
-                pArray[i]+=char.toString()
-            }
-        }
+        val titles = arguments?.getStringArrayList("KEY1")
+        val dates=arguments?.getStringArrayList("KEY2")
+        val rates=arguments?.getStringArrayList("KEY3")
+        val patches=arguments?.getStringArrayList("KEY4")
+        val overviews=arguments?.getStringArrayList("KEY5")
         var imageList = arrayListOf<ItemOfList>()
+        if(patches!=null&&titles!=null&&rates!=null&&dates!=null&&overviews!=null){
         for(i in 0..19)
-            imageList.add(ItemOfList(pArray[i],tArray[i],rArray[i],dArray[i]))
+            imageList.add(ItemOfList(patches[i],titles[i],rates[i],dates[i],overviews[i]))}
         val rootView = inflater.inflate(R.layout.fragment_blank, container, false)
         val recyclerview = rootView.findViewById(R.id._imageRecyclerView) as RecyclerView // Add this
-        recyclerview.layoutManager = LinearLayoutManager(activity)
-        recyclerview.adapter = ItemAdapter(context, imageList){
-            val intent = Intent(context, DetailActivity::class.java)
-            intent.putExtra("OBJECT_INTENT", it)
-            startActivity(intent)
+        recyclerview.layoutManager = LinearLayoutManager(context)
+        val animfortext = AnimationUtils.loadAnimation(context, R.anim.opacity_anim)
+        recyclerview.adapter = ItemAdapter(context, imageList, animfortext){
+            it
         }
         return rootView
     }

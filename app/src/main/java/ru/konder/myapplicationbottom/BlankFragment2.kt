@@ -1,12 +1,16 @@
 package ru.konder.myapplicationbottom
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.core.os.bundleOf
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
@@ -18,44 +22,23 @@ class BlankFragment2 : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_blank2, container, false)
+        val titles = arguments?.getStringArrayList("KEY1")
+        val dates = arguments?.getStringArrayList("KEY2")
+        val rates = arguments?.getStringArrayList("KEY3")
+        val patches = arguments?.getStringArrayList("KEY4")
+        val overviews=arguments?.getStringArrayList("KEY5")
+        var imageList = arrayListOf<ItemOfList>()
+        if (patches != null && titles != null && rates != null && dates != null&&overviews!=null) {
+            for (i in 0..19)
+                imageList.add(ItemOfList(patches[i], titles[i], rates[i], dates[i],overviews[i]))
+        }
+        val recyclerview =
+            rootView.findViewById(R.id._imageRecyclerView2) as RecyclerView // Add this
+        recyclerview.layoutManager = LinearLayoutManager(context)
+        val animfortext = AnimationUtils.loadAnimation(context, R.anim.opacity_anim)
+        recyclerview.adapter = ItemAdapter(context, imageList, animfortext){
+            it
+        }
         return rootView
-    }
-}
-interface MyInterface {
-    fun getapi() {
-        var URL = "https://api.themoviedb.org/3/movie/top_rated?api_key=ab9d01d6538c94cad37d1af4c042140d"
-        var okHttpClient: OkHttpClient = OkHttpClient()
-        var titles: String=""
-        var dates: String=""
-        var rates: String=""
-        var patches: String=""
-            val request: Request = Request.Builder().url(URL).build()
-            okHttpClient.newCall(request).enqueue(object : Callback {
-                override fun onFailure(call: Call, e: IOException) {
-                    Log.e("Error",e.toString())
-                }
-                override fun onResponse(call: Call, response: Response) {
-                    val joke = (JSONObject(response!!.body()!!.string()).getJSONArray("results"))
-                    for (i in 0 until joke.length()) {
-                        val item = joke.getJSONObject(i)
-                        val title = item.get("title").toString()
-                        titles+="_"
-                        titles+= title
-                        val date = item.get("release_date").toString()
-                        dates+="_"
-                        dates+= date
-                        val rate = item.get("vote_average").toString()
-                        rates+="_"
-                        rates+= rate
-                        val patch = item.get("poster_path").toString()
-                        patches+="_"
-                        patches+= patch
-                    }
-                    //runOnUiThread{
-                    //
-                    //}
-                }
-            })
-
     }
 }

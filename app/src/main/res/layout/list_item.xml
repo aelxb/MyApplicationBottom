@@ -8,6 +8,14 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <androidx.core.widget.ContentLoadingProgressBar
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:visibility="gone"
+            android:layout_marginTop="200dp"
+            android:id="@+id/progressBarForlist"
+            style="?android:attr/progressBarStyle"
+            android:layout_centerHorizontal="true"/>
         <ImageView
             android:id="@+id/_image"
             android:layout_width="300dp"
@@ -22,6 +30,12 @@
             android:textSize="18sp"/>
         <TextView
             android:layout_below="@+id/title"
+            android:id="@+id/overwiew"
+            style="@style/TextViewStyle"
+            android:textSize="12sp"
+            android:visibility="gone"/>
+        <TextView
+            android:layout_below="@+id/overwiew"
             android:id="@+id/rating"
             style="@style/TextViewStyle"
             android:textSize="12sp"/>
@@ -30,6 +44,7 @@
             android:id="@+id/daterelease"
             style="@style/TextViewStyle"
             android:textSize="12sp"/>
+
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

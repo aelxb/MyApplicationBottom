@@ -5,7 +5,6 @@
     android:id="@+id/nav"
     tools:ignore="UnusedNavigation"
     app:startDestination="@id/blankFragment">
-
     <fragment
         android:id="@+id/blankFragment"
         android:name="ru.konder.myapplicationbottom.BlankFragment"
