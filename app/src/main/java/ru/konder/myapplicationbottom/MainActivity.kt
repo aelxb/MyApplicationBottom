@@ -14,7 +14,7 @@ import java.io.IOException
 import kotlin.collections.*
 
 class MainActivity : AppCompatActivity() {
-    var URL = "https://api.themoviedb.org/3/movie/top_rated?api_key=${BuildConfig.API_KEY}"
+    var URL = "${API_Url.BSIC_URL}top_rated${BuildConfig.API_KEY}"
     var okHttpClient: OkHttpClient = OkHttpClient()
     var titles = arrayListOf<String>()
     var dates=arrayListOf<String>()
@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
         var ratesForUp=arrayListOf<String>()
         var patchesForUp=arrayListOf<String>()
         var overviewsForUp=arrayListOf<String>()
-        URL = "https://api.themoviedb.org/3/movie/upcoming?api_key=ab9d01d6538c94cad37d1af4c042140d"
+        URL = "${API_Url.BSIC_URL}upcoming${BuildConfig.API_KEY}"
         request = Request.Builder().url(URL).build()
         okHttpClient.newCall(request).enqueue(object : Callback{
             override fun onFailure(call: Call, e: IOException) {
